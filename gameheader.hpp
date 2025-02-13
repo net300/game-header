@@ -36,6 +36,7 @@ namespace gstd{
         #else
         usleep(1000000*seconds);//Maybe the macos can't run this please call me if it is
         #endif
+        return 0;
     }
     #ifdef __WIN32__
         bool keypress(char presskey)//its only for windows user
@@ -48,8 +49,18 @@ namespace gstd{
             return (presskey == _ch);
         }
     #else
-        //sorry the like-unix systems keypress() function is coding now.
-        //I hope you can wait a moment please.
+        bool keypress(char presskey)
+        {
+            Console console;
+            char _ch;
+            if (console.kbhit())
+            {
+                _ch = console.getch();
+            }
+            return (presskey == _ch);
+        }
+        //the keypress need conio.h on linux,macos go there to get conio.h:https://github.com/zoelabbb/conio.h
+        //May there some error
     #endif
     int clear()
     {
@@ -64,6 +75,7 @@ namespace gstd{
                 #endif
             #endif
         #endif
+        return 0;
     }
     int refresh(Entity in[],Game game,int howmanyE)
     {
@@ -102,5 +114,6 @@ namespace gstd{
             }
             std::cout << std::endl;
         }
+        return 0;
     }
 }
